@@ -1,4 +1,4 @@
-###锁 java.util.concurrent.locks
+### 锁 java.util.concurrent.locks
 * 主要的接口 Lock (ReentrantLock)、ReadWriteLock(ReentrantReadWriteLock) (另有一个Condition)
 * 接口Lock:  
 `public interface Lock{  `   
@@ -33,9 +33,9 @@ AbstractQueuedSynchronizer
         
  * 公平性一般默认false 原因 公平锁会让等待时间最久的线程执行 而 引发许多线程上下文的切换
  
- ###Lock和Sync: 
+ ### Lock和Sync: 
  * Lock不仅包括sync的所有功能 还可以实现非阻塞锁、中断响应、定时等功能
  * 但是sync代码简单 是一种声明式编程 一切由jvm处理 而 lock是命令式编程 需要使用者熟练掌握所有细节
  * 于性能，在较新版本的JVM上，ReentrantLock和synchronized的性能是接近的，但Java编译器和虚拟机可以
     不断优化synchronized的实现，比如，自动分析synchronized的使用，对于没有锁竞争的场景，自动省略对锁获取/释放的调用。
- ###所以一般能用sync就不要用lock
+ ### 所以一般能用sync就不要用lock
