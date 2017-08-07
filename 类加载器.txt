@@ -1,0 +1,22 @@
+类加载器 
+	把字节码加载到内存，产生class对象
+	一般不用自己实现
+	使用
+		热部署 JSP、OSGI
+		应用模块化和相互隔离 使用不同的ClassLoader
+		从不同的地方加载
+	
+	输入：完全限定类名   输出：class对象
+
+BootstrapClassloader C++实现
+ExtClassLoader sun.misc.Launcher$ExtClassLoader
+AppClassLoader  sun.misc.Launcher$AppClassLoader
+
+classloader.load()  不会加载class的初始化代码(即static代码块)
+Class.forName()  会加载static代码块
+
+应用
+	通过配置文件实现在不同情况下不同类的加载 类似于策略模式
+
+自定义classloader
+    extends Classloader 重写 findClass 获取class文件的字节码 return defineClass
