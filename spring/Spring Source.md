@@ -42,9 +42,9 @@
         * BeanDefinition的实现类有RootBeanDefinition、ChildBeanDefinition和GenericBeanDefinition分别代表 `<bean>` 的父子类关系和通用的BeanDefinition
         * 解析之后的注册也就是把BeanDefinition注册到BeanDefinitionRegistry中
         * BeanDefinitionRegistry包含一个Map，用于【配置信息】的读取，这里的BeanDefinition是xml配置文件的对象化，不是bean的实例
-        * todo        
+        * todo
         
-    5. bean加载 todo BeanWrapper 
+    5. bean加载   BeanWrapper，从BeanDefinition到Bean之间的中转，提供了许多辅助功能，例如属性注入
         * 从BeanFactory加载bean
             1. 转换beanName transformedBeanName(name)
                 * 例如，别名匹配
@@ -73,7 +73,8 @@
                         2. 加载OverrideMethod，对应于配置里的 lookup-method和replace-method
                             * 动态代理，生成动态代理类并替换对应方法
                         3. 调用 BeanPostProcessor 覆盖加载Bean，如果成功就直接返回
-                        4. 创建bean doCreateBean()
+                        4. 创建bean doCreateBean() 
+                        先创建一个BeanWrapper，再由这个BeanWrapper构造bean，反射或者cglib代理，为了循环依赖的检测和属性注入@Autowired
                             1. 如果是单例就清除缓存
                             2. 构造BeanWrapper，调用对应的工厂方法、构造法
                                 * 工厂方法比较简单，委托给BeanFactory即可
@@ -94,7 +95,7 @@
             9. 根据参数进行转化，例如getBean(name,Type)，就会根据type验证并且转化成对应的类型，否则默认为Object
             
     6. 容器的扩展功能 ApplicationContext spring中BeanFactory接口中的getBean负责获得Bean，而ApplicationContext实现了这个接口
-    并且增加了一些其他的功能    
+    并且增加了一些其他的功能
         * 设置配置路径 解析路径，并保存
             1. setConfigLocations(String[] locations):支持以数组的形式传入多个locations
             2. resolvePath(locations[i]):循环取得每一个location并解析
